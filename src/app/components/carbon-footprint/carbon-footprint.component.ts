@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {CarbonFootprintFormComponent} from "../carbon-footprint-form/carbon-footprint-form.component";
 import {CarbonFootprintResultComponent} from "../carbon-footprint-result/carbon-footprint-result.component";
 import {DecimalPipe, NgClass, NgStyle} from "@angular/common";
+import {CarbonFootprintComputeService} from "../../services/carbon-footprint-compute.service";
 
 @Component({
   selector: 'app-carbon-footprint',
@@ -22,20 +23,14 @@ export class CarbonFootprintComponent {
   public readonly minConsumption: number = 4
   public distanceKm!: number
   public consumptionFor100!: number
+  public quantityCo2!: number
   public travels: any[] = []
 
+  constructor(private cfpcs: CarbonFootprintComputeService) {
+  }
+
   ngOnInit() {
-    this.distanceKm = 50;
-    this.consumptionFor100 = 5;
-
-    this.travels = [
-      {distanceKm: 50, consumptionFor100: 5},
-      {distanceKm: 150, consumptionFor100: 6},
-      {distanceKm: 250, consumptionFor100: 7},
-      {distanceKm: 350, consumptionFor100: 8},
-      {distanceKm: 450, consumptionFor100: 9}
-    ]
-
+    this.travels = this.cfpcs.getTravels()
     this.calculateDistanceAndAverage()
   }
 
@@ -44,22 +39,18 @@ export class CarbonFootprintComponent {
   }
 
   addTravel() {
-    const distance = Math.floor(Math.random() * 1000)
-    const consumption = Math.floor(Math.random() * 10)
-    this.travels.push({distanceKm: distance, consumptionFor100: consumption})
+    const distance = Math.ceil(Math.random() * 1000)
+    const consumption = Math.ceil(Math.random() * 10)
+    const quantityCo2 = distance * consumption / 100 * 2.3
+    this.cfpcs.addTravel({distanceKm: distance, consumptionFor100: consumption, quantityCo2: quantityCo2})
     this.calculateDistanceAndAverage()
   }
 
   public calculateDistanceAndAverage() {
-    let totalDistance  = 0;
-    let average = 0;
-
-    for(const travel of this.travels){
-      totalDistance += travel.distanceKm;
-      average += travel.consumptionFor100
-    }
-    this.distanceKm = totalDistance;
-    this.consumptionFor100 = average / this.travels.length
+    const resume = this.cfpcs.getResumeTravels()
+    this.distanceKm = resume.totalDistance;
+    this.consumptionFor100 = resume.averageConsumption
+    this.quantityCo2 = resume.quantityCo2Total
   }
 
 
