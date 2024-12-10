@@ -1,2 +1,71 @@
 <app-carbon-footprint-form></app-carbon-footprint-form>
 <app-carbon-footprint-result></app-carbon-footprint-result>
+
+<section>
+  <article>
+    <p>Consommation pour 100km : <span
+      [ngStyle]="{'color' : consumptionFor100 > maxConsumption ? 'red' : consumptionFor100 < minConsumption ? 'green' : 'black'}">{{ consumptionFor100 | number : '1.2-2' }}</span>
+    </p>
+    @if (consumptionFor100 > maxConsumption) {
+      <p>Attention votre consommation est élevée !</p>
+    }
+    @if (consumptionFor100 < minConsumption) {
+      <p>Félicitations votre consommation est faible !</p>
+    }
+    <p>Nombre de km : <span
+      [ngClass]="{'low-distance' : distanceKm < 100, 'high-distance' : distanceKm > 500}">{{ distanceKm }}</span>
+      <button (click)="add100Km()">+ 100 Km</button>
+    </p>
+
+
+    <!--    <p>Nombre de km : @if (distanceKm > 500) {-->
+    <!--      <span class="high-distance">{{ distanceKm }}</span>-->
+    <!--    }-->
+    <!--      @if (distanceKm < 100){-->
+    <!--        <span class="low-distance">{{ distanceKm }}</span>-->
+    <!--      }-->
+    <!--    </p>-->
+    <p>Consommation totale : {{ distanceKm / 100 * consumptionFor100 | number : '1.2-2' }}</p>
+  </article>
+</section>
+
+<section>
+
+  <article>
+    <h2>Liste des voyages</h2>
+    <button (click)="addTravel()">Générer voyage</button>
+    <table>
+      <thead>
+      <tr>
+        <th>Distance</th>
+        <th>Consommation</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (travel of travels; track $index) {
+          <tr>
+            <td>{{ travel.distanceKm }}</td>
+            <td>{{ travel.consumptionFor100 }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+
+  </article>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
