@@ -1,18 +1,31 @@
 import {Component, OnInit} from '@angular/core';
+import {Router, RouterLink, RouterLinkActive} from "@angular/router";
+import {NavComponent} from "../nav/nav.component";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    NavComponent
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
 
-  public username! : string
+  public username!: string
 
-  ngOnInit(): void {
-    this.username = 'Michel';
+  constructor(private router: Router, private authService : UserService) {
   }
 
+  ngOnInit(): void {
+    this.username = this.authService.getUsername();
+  }
+
+  goToProfile() {
+    this.router.navigate(['profile', this.username])
+  }
 }

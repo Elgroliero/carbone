@@ -1,4 +1,7 @@
 <header>
   <h1>Bienvenue {{ username }}</h1>
+
+  <app-nav [username]="username"></app-nav>
+  <button (click)="goToProfile()">Voir mon profil</button>
 </header>
 
