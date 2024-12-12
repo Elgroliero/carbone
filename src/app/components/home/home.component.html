@@ -1,4 +1,17 @@
 <h1>Bievenue sur le site de l'empreinte carbone !</h1>
 <div class="error" *ngIf="error">{{ error }}</div>
-<button (click)="login()">Se connecter</button>
-<button (click)="goToSummary()">Accéder au résumé de votre vie de voyages en voiture</button>
+
+
+<form>
+  <label for="login">Identifiant</label><input id="login" name="login" type="text" [(ngModel)]="username">
+  <label for="password">Mot de passe</label><input id="password" name="password" type="password" [(ngModel)]="password">
+  @if (errors) {
+    @for (error of errors; track error) {
+      <div class="error">{{ error }}</div>
+    }
+  }
+  <button (click)="onSubmit()">Se connecter</button>
+</form>
+
+
+<!--<button (click)="goToSummary()">Accéder au résumé de votre vie de voyages en voiture</button>-->

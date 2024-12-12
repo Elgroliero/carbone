@@ -1,1 +1,43 @@
-<p>carbon-footprint-form works!</p>
+<h2>Ajouter un voyage</h2>
+
+<form [formGroup]="travelForm" (ngSubmit)="onTravelFormSubmit()">
+  <label for="travelType">Moyen de transport</label>
+  <select name="travelType" id="travelType" formControlName="travelType">
+    <option value="car">Voiture</option>
+    <option value="train">Train</option>
+    <option value="plane">Avion</option>
+  </select>
+  <div class="error" *ngIf="travelForm.get('travelType')?.hasError('pattern')">
+    Le choix est incorrect
+  </div>
+
+
+  <label for="distance">Distance</label>
+  <input formControlName="distanceKm" name="distance" id="distance" type="number">
+  <div class="error" *ngIf="travelForm.get('distanceKm')?.hasError('required')">
+    La distance est obligatoire
+  </div>
+  <div class="error" *ngIf="travelForm.get('distanceKm')?.hasError('min')">
+    La distance doit être positive
+  </div>
+
+
+
+  @if (travelForm.get('travelType')?.value == 'car') {
+    <label for="consumption">Consommation</label>
+    <input formControlName="consumptionFor100" name="consumption" id="consumption" type="number">
+    <div class="error" *ngIf="travelForm.get('consumptionFor100')?.hasError('required')">
+      La consommation est obligatoire
+    </div>
+    <div class="error" *ngIf="travelForm.get('consumptionFor100')?.hasError('min')">
+      La consommation doit être positive
+    </div>
+  }
+
+  <label for="date">Date</label>
+  <input name="date" formControlName="date" id="date" type="date">
+  <div class="error" *ngIf="travelForm.get('date')?.hasError('required')">
+    La date est obligatoire
+  </div>
+  <button>Ajouter un voyage</button>
+</form>
