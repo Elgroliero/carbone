@@ -52,6 +52,4 @@ export class CarbonFootprintComponent {
     this.consumptionFor100 = resume.averageConsumption
     this.quantityCo2 = resume.quantityCo2Total
   }
-
-
 }
