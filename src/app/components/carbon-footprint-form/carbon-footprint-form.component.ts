@@ -26,7 +26,7 @@ export class CarbonFootprintFormComponent {
       distanceKm: new FormControl(null, [Validators.required, Validators.min(1)]),
       consumptionFor100: new FormControl(null),
       date: new FormControl(null, Validators.required),
-      travelType: new FormControl('car', [Validators.pattern("(car|train|plane)"), control => this.travelTypeValidator(control)])
+      travelType: new FormControl('car', [Validators.pattern("(car|train|plane)"), (control) => this.travelTypeValidator(control)])
     })
   }
 
@@ -44,14 +44,13 @@ export class CarbonFootprintFormComponent {
     }
 
     this.travelForm.get('consumptionFor100')?.updateValueAndValidity()
-
     return null
   }
 
   onTravelFormSubmit() {
-    console.log(this.travelForm)
+    console.log('mchaine', this.travelForm.value)
     if (this.travelForm.valid) {
-      this.carbonService.addTravel(this.travelForm.value)
+      this.carbonService.addTravel(this.travelForm.value).subscribe()
     }
 
   }
