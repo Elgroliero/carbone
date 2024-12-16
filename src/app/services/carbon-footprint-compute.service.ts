@@ -125,19 +125,21 @@ export class CarbonFootprintComputeService {
     let totalDistance = 0;
     let averageConsumption = 0;
     let quantityCo2Total = 0;
-    //
-    // for (const travel of this.travels) {
-    //   totalDistance += travel.distanceKm;
-    //   averageConsumption += travel.consumptionFor100 * travel.distanceKm
-    //   quantityCo2Total += travel.quantityCo2
-    // }
 
-    return {
-      "totalDistance": totalDistance,
-      "averageConsumption": averageConsumption / totalDistance,
-      "quantityCo2Total": quantityCo2Total
-    }
+    return this.travels$.pipe(
+      map(travels => {
+        for (const travel of travels) {
+          totalDistance += travel.distance;
+          averageConsumption += travel.consumptionFor100Km * travel.distance
+          quantityCo2Total += travel.quantityCo2 ?? 0
+        }
+        return {
+          "totalDistance": totalDistance,
+          "averageConsumption": averageConsumption / totalDistance,
+          "quantityCo2Total": quantityCo2Total
+        }
+      })
+    )
   }
-
 
 }
