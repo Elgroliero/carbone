@@ -43,7 +43,7 @@ export class CarbonFootprintComputeService {
   }
 
   public addTravel(travel: Travel) {
-    console.log(travel)
+    console.log('ici', travel)
     // let travelTest: Travel = {travelType: TravelType.Plane, distance: 100, consumptionFor100Km: 10}
     return this.calculateCo2(travel).pipe(
       switchMap(
@@ -122,24 +122,30 @@ export class CarbonFootprintComputeService {
 
 
   public getResumeTravels() {
-    let totalDistance = 0;
-    let averageConsumption = 0;
-    let quantityCo2Total = 0;
 
     return this.travels$.pipe(
       map(travels => {
+
+        let totalDistance = 0;
+        let averageConsumption = 0;
+        let quantityCo2Total = 0;
+
         for (const travel of travels) {
+
           totalDistance += travel.distance;
           averageConsumption += travel.consumptionFor100Km * travel.distance
           quantityCo2Total += travel.quantityCo2 ?? 0
+
         }
         return {
           "totalDistance": totalDistance,
           "averageConsumption": averageConsumption / totalDistance,
           "quantityCo2Total": quantityCo2Total
         }
+
       })
     )
+
   }
 
 }

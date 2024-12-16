@@ -23,8 +23,8 @@ export class CarbonFootprintFormComponent {
 
   ngOnInit() {
     this.travelForm = new FormGroup({
-      distanceKm: new FormControl(null, [Validators.required, Validators.min(1)]),
-      consumptionFor100: new FormControl(null),
+      distance: new FormControl(null, [Validators.required, Validators.min(1)]),
+      consumptionFor100Km: new FormControl(null),
       date: new FormControl(null, Validators.required),
       travelType: new FormControl('car', [Validators.pattern("(car|train|plane)"), (control) => this.travelTypeValidator(control)])
     })
@@ -48,11 +48,9 @@ export class CarbonFootprintFormComponent {
   }
 
   onTravelFormSubmit() {
-    console.log('mchaine', this.travelForm.value)
     if (this.travelForm.valid) {
       this.carbonService.addTravel(this.travelForm.value).subscribe()
     }
-
   }
 
 
