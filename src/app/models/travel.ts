@@ -5,11 +5,12 @@ export enum TravelType {
 }
 
 export interface Travel {
-  id: number,
+  id?: number,
   distance: number,
   consumptionFor100Km: number,
   quantityCo2?: number,
   date?: Date,
-  travelType?: TravelType
-  userId?: number
+  travelType?: TravelType,
+  userId? : number
+
 }
