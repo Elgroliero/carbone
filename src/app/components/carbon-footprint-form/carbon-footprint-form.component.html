@@ -13,11 +13,11 @@
 
 
   <label for="distance">Distance</label>
-  <input formControlName="distanceKm" name="distance" id="distance" type="number">
-  <div class="error" *ngIf="travelForm.get('distanceKm')?.hasError('required')">
+  <input formControlName="distance" name="distance" id="distance" type="number">
+  <div class="error" *ngIf="travelForm.get('distance')?.hasError('required')">
     La distance est obligatoire
   </div>
-  <div class="error" *ngIf="travelForm.get('distanceKm')?.hasError('min')">
+  <div class="error" *ngIf="travelForm.get('distance')?.hasError('min')">
     La distance doit être positive
   </div>
 
@@ -25,11 +25,11 @@
 
   @if (travelForm.get('travelType')?.value == 'car') {
     <label for="consumption">Consommation</label>
-    <input formControlName="consumptionFor100" name="consumption" id="consumption" type="number">
-    <div class="error" *ngIf="travelForm.get('consumptionFor100')?.hasError('required')">
+    <input formControlName="consumptionFor100Km" name="consumption" id="consumption" type="number">
+    <div class="error" *ngIf="travelForm.get('consumptionFor100Km')?.hasError('required')">
       La consommation est obligatoire
     </div>
-    <div class="error" *ngIf="travelForm.get('consumptionFor100')?.hasError('min')">
+    <div class="error" *ngIf="travelForm.get('consumptionFor100Km')?.hasError('min')">
       La consommation doit être positive
     </div>
   }

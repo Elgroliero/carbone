@@ -46,8 +46,9 @@
       <tbody>
         @for (travel of travels; track $index) {
           <tr>
-            <td>{{ travel.distanceKm }}</td>
-            <td>{{ travel.consumptionFor100 }}</td>
+            <td>{{ travel.distance }}</td>
+            <td>{{ travel.consumptionFor100Km }}</td>
+            <td>{{ travel.travelType }}</td>
             <td>{{ travel.quantityCo2 | number : '1.2-2'  }}</td>
           </tr>
         }
